@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "github.vscode-github-actions",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.csharp",
+    "ms-vscode-remote.remote-containers",
+    "streetsidesoftware.code-spell-checker"
+  ],
+  "unwantedRecommendations": []
+}

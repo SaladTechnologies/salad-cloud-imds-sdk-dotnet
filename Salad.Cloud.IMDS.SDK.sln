@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A50ACB9-3A05-4357-B191-B691065A800F}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{5B5F1FBB-A574-49B5-8CDF-5A974B7DBD26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salad.Cloud.IMDS.SDK", "Salad.Cloud.IMDS.SDK\Salad.Cloud.IMDS.SDK.csproj", "{726F609B-4A21-4EE6-BC3F-CC58920C9293}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B5F1FBB-A574-49B5-8CDF-5A974B7DBD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B5F1FBB-A574-49B5-8CDF-5A974B7DBD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B5F1FBB-A574-49B5-8CDF-5A974B7DBD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B5F1FBB-A574-49B5-8CDF-5A974B7DBD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726F609B-4A21-4EE6-BC3F-CC58920C9293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726F609B-4A21-4EE6-BC3F-CC58920C9293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726F609B-4A21-4EE6-BC3F-CC58920C9293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726F609B-4A21-4EE6-BC3F-CC58920C9293}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46A4A6C6-EF0B-4C0D-96C7-1278EA5191B0}
+	EndGlobalSection
+EndGlobal

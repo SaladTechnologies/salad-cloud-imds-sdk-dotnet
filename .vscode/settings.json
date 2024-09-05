@@ -1,0 +1,26 @@
+{
+  "dotnet.defaultSolution": "Salad.Cloud.IMDS.SDK.sln",
+  "editor.formatOnSave": true,
+  "editor.minimap.maxColumn": 120,
+  "editor.renderWhitespace": "all",
+  "editor.rulers": [120],
+  "files.associations": {
+    "CODEOWNERS": "ignore"
+  },
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "git.branchProtection": ["main"],
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.organizeImportsOnFormat": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
