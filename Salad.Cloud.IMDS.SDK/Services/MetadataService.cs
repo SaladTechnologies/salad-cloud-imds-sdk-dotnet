@@ -1,5 +1,7 @@
 using System.Net.Http.Json;
 using Salad.Cloud.IMDS.SDK.Http;
+using Salad.Cloud.IMDS.SDK.Http.Exceptions;
+using Salad.Cloud.IMDS.SDK.Http.Extensions;
 using Salad.Cloud.IMDS.SDK.Http.Serialization;
 using Salad.Cloud.IMDS.SDK.Models;
 
@@ -25,7 +27,8 @@ public class MetadataService : BaseService
         var response = await _httpClient
             .SendAsync(request, cancellationToken)
             .ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
+
+        response.EnsureSuccessfulResponse();
     }
 
     /// <summary>Gets the health statuses of the running container</summary>
@@ -38,9 +41,9 @@ public class MetadataService : BaseService
         var response = await _httpClient
             .SendAsync(request, cancellationToken)
             .ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
 
         return await response
+                .EnsureSuccessfulResponse()
                 .Content.ReadFromJsonAsync<ContainerStatus>(
                     _jsonSerializerOptions,
                     cancellationToken
@@ -58,9 +61,9 @@ public class MetadataService : BaseService
         var response = await _httpClient
             .SendAsync(request, cancellationToken)
             .ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
 
         return await response
+                .EnsureSuccessfulResponse()
                 .Content.ReadFromJsonAsync<ContainerToken>(
                     _jsonSerializerOptions,
                     cancellationToken
