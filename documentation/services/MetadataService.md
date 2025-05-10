@@ -2,15 +2,86 @@
 
 A list of all methods in the `MetadataService` service. Click on the method name to view detailed information about that method.
 
-| Methods                                               | Description                                             |
-| :---------------------------------------------------- | :------------------------------------------------------ |
-| [ReallocateContainerAsync](#reallocatecontainerasync) | Reallocates the running container to another Salad Node |
-| [GetContainerStatusAsync](#getcontainerstatusasync)   | Gets the health statuses of the running container       |
-| [GetContainerTokenAsync](#getcontainertokenasync)     | Gets the identity token of the running container        |
+| Methods                                               | Description                                                           |
+| :---------------------------------------------------- | :-------------------------------------------------------------------- |
+| [GetDeletionCostAsync](#getdeletioncostasync)         | Gets the deletion cost of the current container instance              |
+| [ReplaceDeletionCostAsync](#replacedeletioncostasync) | Replaces the deletion cost of the current container instance          |
+| [ReallocateAsync](#reallocateasync)                   | Reallocates the current container instance to another SaladCloud node |
+| [RecreateAsync](#recreateasync)                       | Recreates the current container instance on the same SaladCloud node  |
+| [RestartAsync](#restartasync)                         | Restarts the current container instance on the same SaladCloud node   |
+| [GetStatusAsync](#getstatusasync)                     | Gets the health statuses of the current container instance            |
+| [GetTokenAsync](#gettokenasync)                       | Gets the identity token of the current container instance             |
 
-## ReallocateContainerAsync
+## GetDeletionCostAsync
 
-Reallocates the running container to another Salad Node
+Gets the deletion cost of the current container instance
+
+- HTTP Method: `GET`
+- Endpoint: `/v1/deletion-cost`
+
+**Return Type**
+
+`DeletionCost`
+
+**Example Usage Code Snippet**
+
+```csharp
+using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
+
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
+
+var client = new SaladCloudImdsSdkClient(config);
+
+var response = await client.Metadata.GetDeletionCostAsync();
+
+Console.WriteLine(response);
+```
+
+## ReplaceDeletionCostAsync
+
+Replaces the deletion cost of the current container instance
+
+- HTTP Method: `PUT`
+- Endpoint: `/v1/deletion-cost`
+
+**Parameters**
+
+| Name  | Type         | Required | Description       |
+| :---- | :----------- | :------- | :---------------- |
+| input | DeletionCost | ✅       | The request body. |
+
+**Return Type**
+
+`DeletionCost`
+
+**Example Usage Code Snippet**
+
+```csharp
+using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Salad.Cloud.IMDS.SDK.Models;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
+
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
+
+var client = new SaladCloudImdsSdkClient(config);
+
+var input = new DeletionCost(100);
+
+var response = await client.Metadata.ReplaceDeletionCostAsync(input);
+
+Console.WriteLine(response);
+```
+
+## ReallocateAsync
+
+Reallocates the current container instance to another SaladCloud node
 
 - HTTP Method: `POST`
 - Endpoint: `/v1/reallocate`
@@ -19,63 +90,127 @@ Reallocates the running container to another Salad Node
 
 | Name  | Type                | Required | Description       |
 | :---- | :------------------ | :------- | :---------------- |
-| input | ReallocateContainer | ✅       | The request body. |
+| input | ReallocatePrototype | ✅       | The request body. |
 
 **Example Usage Code Snippet**
 
 ```csharp
 using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
 using Salad.Cloud.IMDS.SDK.Models;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
 
-var client = new SaladCloudImdsSdkClient();
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
 
-var input = new ReallocateContainer("laborum culpa");
+var client = new SaladCloudImdsSdkClient(config);
 
-await client.Metadata.ReallocateContainerAsync(input);
+var input = new ReallocatePrototype("Insufficient VRAM");
+
+await client.Metadata.ReallocateAsync(input);
 ```
 
-## GetContainerStatusAsync
+## RecreateAsync
 
-Gets the health statuses of the running container
+Recreates the current container instance on the same SaladCloud node
+
+- HTTP Method: `POST`
+- Endpoint: `/v1/recreate`
+
+**Example Usage Code Snippet**
+
+```csharp
+using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
+
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
+
+var client = new SaladCloudImdsSdkClient(config);
+
+await client.Metadata.RecreateAsync();
+```
+
+## RestartAsync
+
+Restarts the current container instance on the same SaladCloud node
+
+- HTTP Method: `POST`
+- Endpoint: `/v1/restart`
+
+**Example Usage Code Snippet**
+
+```csharp
+using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
+
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
+
+var client = new SaladCloudImdsSdkClient(config);
+
+await client.Metadata.RestartAsync();
+```
+
+## GetStatusAsync
+
+Gets the health statuses of the current container instance
 
 - HTTP Method: `GET`
 - Endpoint: `/v1/status`
 
 **Return Type**
 
-`ContainerStatus`
+`Status`
 
 **Example Usage Code Snippet**
 
 ```csharp
 using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
 
-var client = new SaladCloudImdsSdkClient();
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
 
-var response = await client.Metadata.GetContainerStatusAsync();
+var client = new SaladCloudImdsSdkClient(config);
+
+var response = await client.Metadata.GetStatusAsync();
 
 Console.WriteLine(response);
 ```
 
-## GetContainerTokenAsync
+## GetTokenAsync
 
-Gets the identity token of the running container
+Gets the identity token of the current container instance
 
 - HTTP Method: `GET`
 - Endpoint: `/v1/token`
 
 **Return Type**
 
-`ContainerToken`
+`Token`
 
 **Example Usage Code Snippet**
 
 ```csharp
 using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
 
-var client = new SaladCloudImdsSdkClient();
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
 
-var response = await client.Metadata.GetContainerTokenAsync();
+var client = new SaladCloudImdsSdkClient(config);
+
+var response = await client.Metadata.GetTokenAsync();
 
 Console.WriteLine(response);
 ```
