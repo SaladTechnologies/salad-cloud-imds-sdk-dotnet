@@ -1,12 +1,18 @@
 ```csharp
 using Salad.Cloud.IMDS.SDK;
+using Salad.Cloud.IMDS.SDK.Config;
 using Salad.Cloud.IMDS.SDK.Models;
+using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
 
-var client = new SaladCloudImdsSdkClient();
+var config = new SaladCloudImdsSdkConfig{
+    Environment = Environment.Default
+};
 
-var input = new ReallocateContainer("laborum culpa");
+var client = new SaladCloudImdsSdkClient(config);
 
-await client.Metadata.ReallocateContainerAsync(input);
+var input = new ReallocatePrototype("Insufficient VRAM");
+
+await client.Metadata.ReallocateAsync(input);
 
 
 ```
