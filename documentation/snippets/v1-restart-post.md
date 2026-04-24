@@ -1,15 +1,13 @@
 ```csharp
 using Salad.Cloud.IMDS.SDK;
 using Salad.Cloud.IMDS.SDK.Config;
-using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
+using Salad.Cloud.IMDS.SDK.Models;
 
-var config = new SaladCloudImdsSdkConfig{
-    Environment = Environment.Default
-};
+var config = new SaladCloudImdsSdkConfig{};
 
 var client = new SaladCloudImdsSdkClient(config);
 
-await client.Metadata.RestartAsync();
+await client.Metadata.RestartAsync(Metadata1.True_);
 
 
 ```
