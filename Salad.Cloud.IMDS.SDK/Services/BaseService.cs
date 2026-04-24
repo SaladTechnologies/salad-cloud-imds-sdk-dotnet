@@ -1,7 +1,11 @@
 using System.Text.Json;
+using Salad.Cloud.IMDS.SDK.Json;
 
 namespace Salad.Cloud.IMDS.SDK.Services;
 
+/// <summary>
+/// Base service class providing core HTTP request execution and JSON serialization for all service endpoints.
+/// </summary>
 public class BaseService
 {
     protected readonly HttpClient _httpClient;
@@ -10,6 +14,9 @@ public class BaseService
     public BaseService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        _jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        {
+            Converters = { new ValueEnumJsonConverterFactory() },
+        };
     }
 }

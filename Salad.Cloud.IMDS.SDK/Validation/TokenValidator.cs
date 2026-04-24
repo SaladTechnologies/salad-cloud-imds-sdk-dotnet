@@ -4,7 +4,12 @@ using FluentValidation;
 using FluentValidation.Results;
 using Salad.Cloud.IMDS.SDK.Models;
 
-public class TokenValidator : AbstractValidator<Token?>
+/// <summary>
+/// FluentValidation validator for Token model.
+/// Defines validation rules for required fields, formats, ranges, and constraints based on the API schema.
+/// Automatically validates instances during request serialization and response deserialization.
+/// </summary>
+public class TokenValidator : AbstractValidator<Token>
 {
     public TokenValidator()
     {
@@ -14,6 +19,6 @@ public class TokenValidator : AbstractValidator<Token?>
             .MaximumLength(1000)
             .WithMessage("Minimum length for jwt is 1.")
             .NotNull()
-            .WithMessage("Field jwt is required.");
+            .WithMessage("Field jwt is required and cannot be null.");
     }
 }

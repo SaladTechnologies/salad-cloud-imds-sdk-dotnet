@@ -1,5 +1,4 @@
 using Salad.Cloud.IMDS.SDK.Config;
-using Salad.Cloud.IMDS.SDK.Hooks;
 using Salad.Cloud.IMDS.SDK.Http.Extensions;
 using Salad.Cloud.IMDS.SDK.Http.Handlers;
 using Salad.Cloud.IMDS.SDK.Services;
@@ -7,17 +6,20 @@ using Environment = Salad.Cloud.IMDS.SDK.Http.Environment;
 
 namespace Salad.Cloud.IMDS.SDK;
 
+/// <summary>
+/// The main SDK client that provides access to all service endpoints.
+/// Manages HTTP client lifecycle, authentication handlers, and service instances with centralized configuration.
+/// Implements IDisposable to properly clean up HTTP resources.
+/// </summary>
 public class SaladCloudImdsSdkClient : IDisposable
 {
     private readonly HttpClient _httpClient;
-    private readonly HookHandler _hookHandler;
 
     public MetadataService Metadata { get; private set; }
 
     public SaladCloudImdsSdkClient(SaladCloudImdsSdkConfig? config = null)
     {
-        _hookHandler = new HookHandler(new CustomHook(), config);
-        var retryHandler = new RetryHandler(_hookHandler);
+        var retryHandler = new RetryHandler();
         _httpClient = new HttpClient(retryHandler)
         {
             BaseAddress = config?.Environment?.Uri ?? Environment.Default.Uri,
@@ -49,6 +51,24 @@ public class SaladCloudImdsSdkClient : IDisposable
     public void SetBaseUrl(Uri uri)
     {
         _httpClient.BaseAddress = uri.EnsureTrailingSlash();
+    }
+
+    /// <summary>
+    /// Sets the timeout for the entire SDK.
+    /// </summary>
+    /// <param name="timeout">The timeout value. Must be a positive TimeSpan or Timeout.InfiniteTimeSpan.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the timeout is not valid.</exception>
+    public void SetTimeout(TimeSpan timeout)
+    {
+        if (timeout <= TimeSpan.Zero && timeout != Timeout.InfiniteTimeSpan)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(timeout),
+                "Timeout must be a positive value or Timeout.InfiniteTimeSpan."
+            );
+        }
+
+        _httpClient.Timeout = timeout;
     }
 
     public void Dispose()

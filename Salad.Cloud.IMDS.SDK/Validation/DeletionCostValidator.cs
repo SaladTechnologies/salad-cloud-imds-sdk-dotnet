@@ -4,7 +4,12 @@ using FluentValidation;
 using FluentValidation.Results;
 using Salad.Cloud.IMDS.SDK.Models;
 
-public class DeletionCostValidator : AbstractValidator<DeletionCost?>
+/// <summary>
+/// FluentValidation validator for DeletionCost model.
+/// Defines validation rules for required fields, formats, ranges, and constraints based on the API schema.
+/// Automatically validates instances during request serialization and response deserialization.
+/// </summary>
+public class DeletionCostValidator : AbstractValidator<DeletionCost>
 {
     public DeletionCostValidator()
     {
@@ -14,6 +19,6 @@ public class DeletionCostValidator : AbstractValidator<DeletionCost?>
             .LessThanOrEqualTo(2147483647)
             .WithMessage("Minimum for deletion_cost is 2147483647.")
             .NotNull()
-            .WithMessage("Field deletion_cost is required.");
+            .WithMessage("Field deletion_cost is required and cannot be null.");
     }
 }
